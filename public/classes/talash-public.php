@@ -10,6 +10,7 @@
 namespace Talash\View;
 
 use Talash\View\Template_Api;
+use Talash_Elementor_Widget_Register;
 
 
 class Talash_Public {
@@ -19,6 +20,7 @@ class Talash_Public {
 
 		Assets_Manager::init();
 		Template_Api::load_api();
+		Talash_Elementor_Widget_Register::init();
 
 		add_shortcode( 'talash-search', [ __CLASS__, 'shortcode_markup' ] );
 	}
@@ -28,6 +30,8 @@ class Talash_Public {
 		require_once TALASH_DIR_PATH . 'public/classes/filter.php';
 		require_once TALASH_DIR_PATH . 'public/classes/template-markup.php';
 		require_once TALASH_DIR_PATH . 'public/classes/template-api.php';
+		require_once TALASH_DIR_PATH . 'widgets/elementor_widget/RegisterExtension.php';
+
 	}
 
 	static function shortcode_markup() {
