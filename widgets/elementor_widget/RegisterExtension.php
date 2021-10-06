@@ -17,7 +17,7 @@ Class Talash_Elementor_Widget_Register{
 	 *
 	 * @var string Minimum PHP version required to run the plugin.
 	 */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '5.6';
 
 
 	public static function init() {
@@ -42,6 +42,15 @@ Class Talash_Elementor_Widget_Register{
 
 		// Add Plugin actions
 		add_action( 'elementor/widgets/widgets_registered', [ __CLASS__, 'init_widgets' ] );
+		add_action( "elementor/frontend/after_enqueue_scripts", [ __CLASS__, 'frontend_assets_scripts' ] );
+	}
+
+	public static function frontend_assets_scripts(){
+		if ( TALASH_ENV_DEV ) {
+			wp_enqueue_script( 'elemntor-talash-main', TALASH_URL . 'assets/js/talash-main.js', array( 'jquery' ), TALASH_VERSION . time(), true  );
+		} else {
+			wp_enqueue_script( 'elemntor-talash-main', TALASH_URL . 'assets/js/talash-main.min.js', array( 'jquery' ), TALASH_VERSION, true  );
+		}
 	}
 
 	/**
